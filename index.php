@@ -25,7 +25,7 @@ _END;
 		
 		for($i=0;$i<3;$i++){
 			$foo = "inp$i";
-			echo "<input type='text' name='$foo' /><br />";
+			echo "<br /><input type='text' name='$foo' />";
 		}	
 
 if(isset($_POST['inp0']) || isset($_POST['inp1']) || isset($_POST['inp2'])){
@@ -47,11 +47,13 @@ if(isset($_POST['inp0']) || isset($_POST['inp1']) || isset($_POST['inp2'])){
 		}
 	}
 
-echo "	
+echo "	<br />
 		<input type='submit' value='Add' />	
 		</form>
 
-		<div id='incomplete'> <form method='POST' action='index.php'>";
+		<div id='incomplete'>
+		<h2>To-do</h2>
+		 <form method='POST' action='index.php'>";
 			
 			$query = "SELECT * FROM todo WHERE status='no'";
 			$result = queryMySql($query);
@@ -59,21 +61,44 @@ echo "
 
 			for($i=0;$i<$num;$i++){
 				$row = mysql_fetch_row($result);
-
-				echo "<input type='checkbox' name='list' />
-				<label>$row[1]</label><br /> ";
+				
+				echo "<br /><input type='checkbox' name='list[]' value=$row[0] />
+				<label>$row[1]</label> ";
 			}
-echo '
+echo '	<br />
 		<input type="submit" value="Completed" />
 
 
 		</form>;
 		</div>
 
+		<div>
+			<h2>Completed</h2>';
+
+			$query = "SELECT * FROM todo WHERE status='yes'";
+			$result = queryMySql($query);
+			$num = mysql_num_rows($result);
+
+			for($i=0;$i<$num;$i++){
+				$row = mysql_fetch_row($result);
+				echo "<br /><input type='checkbox' value=row[0] checked='checked'/>
+				<label>$row[1]</label> ";
+			}
+echo '</div>
 	</body>
 </html>';
 
+	if(isset($_POST['list'])){
 
-	if(isset($_POST[]))
+	$sel = $_POST['list'];
+	print_r($sel);
+	echo "<br />";
+	foreach ($sel as $item) {
+		$query = "UPDATE todo SET status='yes' WHERE id=$item";
+		$result = queryMySql($query);
+		echo "$item <br />";
+	}
+	
+	}
 ?>
 
