@@ -1,10 +1,10 @@
 <?php
 // Essential constants and functions
 
-$dbhost = 'localhost';
+$dbhost = '';
 $dbname = 'todo';
-$dbuser = 'root';
-$dbpass = 'thisworks';
+$dbuser = '';
+$dbpass = '';
 
 mysql_connect($dbhost, $dbuser, $dbpass) or die(mysql_error());
 mysql_select_db($dbname) or die(mysql_error());
@@ -38,6 +38,6 @@ function sanitizeString($var){
 	$var = strip_tags($var);
 	$var = htmlentities($var);
 	$var = stripslashes($var);
-	return mysql_real_escape_string($var)
+	return mysql_real_escape_string($var);
 }
 ?>
