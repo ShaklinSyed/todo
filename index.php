@@ -10,16 +10,12 @@ echo <<<_END
 		<title>
 			To-do
 		</title>
-		<script type="text/javascript">
-
-		</script>
+		<link rel="stylesheet" type="text/css" href="style.css" />
 	</head>
 
 	<body>
 	<!-- A Simple to-do app using PHP -->
 		<h1>To-do app</h1>
-
-
 		<form method="POST" action="index.php">
 _END;
 		
@@ -47,13 +43,15 @@ if(isset($_POST['inp0']) || isset($_POST['inp1']) || isset($_POST['inp2'])){
 		}
 	}
 
-echo "	<br />
+echo <<<_END
+	<br />
 		<input type='submit' value='Add' />	
 		</form>
 
 		<div id='incomplete'>
 		<h2>To-do</h2>
-		 <form method='POST' action='index.php'>";
+		 <form method='POST' action='index.php'>
+_END;
 			
 			$query = "SELECT * FROM todo WHERE status='no'";
 			$result = queryMySql($query);
@@ -66,25 +64,32 @@ echo "	<br />
 				<label>$row[1]</label> ";
 			}
 
-echo '	<br />
+echo <<<_END
+		<br />
 		<input type="submit" value="Completed" />
 		</form>
 		</div>
 		<div>
-		<h2>Completed</h2>';
-
+		<h2>Completed</h2>
+_END;
+// Displays the list of Completed items
 			$query = "SELECT * FROM todo WHERE status='yes'";
 			$result = queryMySql($query);
 			$num = mysql_num_rows($result);
 
 			for($i=0;$i<$num;$i++){
 				$row = mysql_fetch_row($result);
-				echo "<br /><input type='checkbox' value=row[0] checked='checked'/>
-				<label>$row[1]</label> ";
+				echo <<<_END
+				<br /><input type='checkbox' value=row[0] checked='checked'/>
+				<label class="strike">$row[1]</label> 
+_END;
 			}
-echo '</div>
+
+echo <<<_END
+		</div>
 	</body>
-</html>';
+</html>
+_END;
 	
 	//Adds fields to completed Status
 	if(isset($_POST['list'])){
