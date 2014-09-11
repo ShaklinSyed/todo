@@ -65,15 +65,13 @@ echo "	<br />
 				echo "<br /><input type='checkbox' name='list[]' value=$row[0] />
 				<label>$row[1]</label> ";
 			}
+
 echo '	<br />
 		<input type="submit" value="Completed" />
-
-
-		</form>;
+		</form>
 		</div>
-
 		<div>
-			<h2>Completed</h2>';
+		<h2>Completed</h2>';
 
 			$query = "SELECT * FROM todo WHERE status='yes'";
 			$result = queryMySql($query);
@@ -87,18 +85,14 @@ echo '	<br />
 echo '</div>
 	</body>
 </html>';
-
+	
+	//Adds fields to completed Status
 	if(isset($_POST['list'])){
-
-	$sel = $_POST['list'];
-	print_r($sel);
-	echo "<br />";
-	foreach ($sel as $item) {
-		$query = "UPDATE todo SET status='yes' WHERE id=$item";
-		$result = queryMySql($query);
-		echo "$item <br />";
-	}
+		$sel = $_POST['list'];
+		foreach ($sel as $item) {
+			$query = "UPDATE todo SET status='yes' WHERE id=$item";
+			queryMySql($query);
+		}
 	
 	}
 ?>
-
