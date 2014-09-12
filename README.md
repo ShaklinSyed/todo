@@ -1,4 +1,4 @@
 todo
 ====
 
-A simple to App using PHP, Mysql, and html
+A simple To-do App using PHP, Mysql, javascript, css and html.

@@ -11,18 +11,20 @@ echo <<<_END
 			To-do
 		</title>
 		<link rel="stylesheet" type="text/css" href="style.css" />
+		
 	</head>
 
 	<body>
 	<!-- A Simple to-do app using PHP -->
 		<h1>To-do app</h1>
-		<form method="POST" action="index.php">
+		<form method="POST" action="index.php" name = "alpha">
 _END;
-		
-		for($i=0;$i<3;$i++){
-			$foo = "inp$i";
-			echo "<br /><input type='text' name='$foo' />";
-		}	
+
+//Displays three Input boxes
+for($i=0;$i<3;$i++){
+	$foo = "inp$i";
+	echo "<br /><input type='text' name='$foo' id='$foo'/>";
+}	
 
 if(isset($_POST['inp0']) || isset($_POST['inp1']) || isset($_POST['inp2'])){
 	$val1 = sanitizeString($_POST['inp0']);
@@ -45,12 +47,12 @@ if(isset($_POST['inp0']) || isset($_POST['inp1']) || isset($_POST['inp2'])){
 
 echo <<<_END
 	<br />
-		<input type='submit' value='Add' />	
+		<input type='submit' value='Add' onClick="valid();"/>	
 		</form>
 
 		<div id='incomplete'>
 		<h2>To-do</h2>
-		 <form method='POST' action='index.php'>
+		 <form method='POST' action='index.php' name="beta">
 _END;
 			
 			$query = "SELECT * FROM todo WHERE status='no'";
@@ -66,11 +68,12 @@ _END;
 
 echo <<<_END
 		<br />
-		<input type="submit" value="Completed" />
+		<input type="submit" value="Completed"/>
 		</form>
 		</div>
 		<div>
 		<h2>Completed</h2>
+		<form method='POST' action='index.php' name="gamma">
 _END;
 // Displays the list of Completed items
 			$query = "SELECT * FROM todo WHERE status='yes'";
@@ -86,7 +89,9 @@ _END;
 			}
 
 echo <<<_END
+		</form>
 		</div>
+		<script type="text/javascript" src="script.js"></script>
 	</body>
 </html>
 _END;
